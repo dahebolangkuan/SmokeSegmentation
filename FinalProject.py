@@ -127,17 +127,13 @@ def canny_smoke(img, clustered_img):
         tot = np.sum(border_pixels)
         ratio = np.double(edgecount)/tot
 
-        plt.subplot(221), plt.imshow(img), 
-        plt.title('Original'), plt.xticks([]), plt.yticks([])
-        plt.subplot(222), plt.imshow(255.0*clustered_img/np.max(clustered_img))
-        plt.title('Segmentation'), plt.xticks([]), plt.yticks([])
-        plt.subplot(223), plt.imshow(edges), 
-        plt.title('Canny Edges'), plt.xticks([]), plt.yticks([])
-        plt.subplot(224), plt.imshow(border_pixels - 0.5*seg_can)
-        plt.title('Edges on Boundary'), plt.xticks([]), plt.yticks([])
+        # plt.subplot(224), plt.imshow(border_pixels - 0.5*seg_can)
+        # plt.title('Edges on Boundary'), plt.xticks([]), plt.yticks([])
 
         ratios[cluster] = ratio
 
+    plt.subplot(223), plt.imshow(edges), 
+    plt.title('Canny Edges'), plt.xticks([]), plt.yticks([])
     return ratios
 
 # RECEIVES: original rgb image, feature vector of size (npixels,nfeatures), and scalar bandwidth parameter\
@@ -224,6 +220,12 @@ if __name__ == '__main__':
             print clustercorner_ratios
             print "Canny"
             print clusteredge_ratios
+
+            plt.subplot(221), plt.imshow(img), 
+            plt.title('Original'), plt.xticks([]), plt.yticks([])
+            plt.subplot(222), plt.imshow(255.0*clustered_pixels/np.max(clustered_pixels))
+            plt.title('Segmentation'), plt.xticks([]), plt.yticks([])
+
             plt.subplot(224), plt.imshow(final,cmap='gray'), plt.title('Final Results')
             plt.xticks([]), plt.yticks([])
             plt.show()
